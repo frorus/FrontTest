@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  fronttest:
+    image: ${DOCKER_REGISTRY-}fronttest
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+  sqldb:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+    - SA_PASSWORD=yourStrong(!)Password
+    - ACCEPT_EULA=Y
+    ports:
+    - "1450:1433"
