@@ -1,10 +1,12 @@
 ﻿using FrontTest.Contracts;
 using FrontTest.Data.Models;
 using FrontTest.Extensions.Exceptions;
+using FrontTest.Extensions.SwaggerExamples;
 using FrontTest.Repositories;
 using FrontTest.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace FrontTest.Controllers
 {
@@ -22,6 +24,11 @@ namespace FrontTest.Controllers
         [HttpPost]
         [Route("auth/register")]
         [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerRequestExample(typeof(RegisterUserRequest), typeof(RegisterRequestExample))]
+        [SwaggerResponseExample(201, typeof(OkResponseExample))]
+        [SwaggerResponseExample(400, typeof(BadResponseExample))]
         public async Task<ActionResult<AppUser>> Register([FromBody] RegisterUserRequest request)
         {
             if (!ModelState.IsValid)
@@ -71,6 +78,13 @@ namespace FrontTest.Controllers
         [HttpPost]
         [Route("auth/login")]
         [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerRequestExample(typeof(LoginUserRequest), typeof(LoginRequestExample))]
+        [SwaggerResponseExample(200, typeof(OkResponseExample))]
+        [SwaggerResponseExample(400, typeof(BadResponseExample))]
+        [SwaggerResponseExample(404, typeof(BadResponseExample))]
         public async Task<ActionResult<AppUser>> Login([FromBody] LoginUserRequest request)
         {
             if (!ModelState.IsValid)
@@ -78,12 +92,12 @@ namespace FrontTest.Controllers
                 throw new MyBadRequestException("Данные введены некорректно");
             }
 
-            if (!await _users.UserExists(request.Login!))
+            if (!await _users.UserExists(request.Phone!))
             {
                 throw new MyNotFoundException("Пользователь не найден");
             }
 
-            var user = await _users.GetUserByLogin(request.Login!);
+            var user = await _users.GetUserByLogin(request.Phone!);
 
             if (user.Password != request.Password)
             {
@@ -98,9 +112,15 @@ namespace FrontTest.Controllers
             return StatusCode(200, resp);
         }
 
+
+        /// <param name="id" example="705bb81a-9930-438a-a3f2-3438985b2da8"></param>
         [HttpGet]
         [Route("user")]
         [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerResponseExample(200, typeof(GetUserOkResponseExample))]
+        [SwaggerResponseExample(404, typeof(BadResponseExample))]
         public async Task<ActionResult<AppUser>> GetUser([BindRequired] Guid id)
         {
             var user = await _users.GetUserById(id);
