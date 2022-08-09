@@ -24,14 +24,14 @@ namespace FrontTest.Repositories
             return await _context.ApplicationUsers.FindAsync(id);
         }
 
-        public async Task<AppUser> GetUserByLogin(string login)
+        public async Task<AppUser> GetUserByPhone(string phone)
         {
-            return await _context.ApplicationUsers.FirstOrDefaultAsync(l => l.Login == login);
+            return await _context.ApplicationUsers.FirstOrDefaultAsync(l => l.Phone == phone);
         }
 
-        public Task<bool> UserExists(string login)
+        public Task<bool> UserExists(string phone)
         {
-            return Task.FromResult((_context.ApplicationUsers?.Any(e => e.Login == login)).GetValueOrDefault());
+            return Task.FromResult((_context.ApplicationUsers?.Any(e => e.Phone == phone)).GetValueOrDefault());
         }
     }
 }

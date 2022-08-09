@@ -36,7 +36,7 @@ namespace FrontTest.Controllers
                 throw new MyBadRequestException("Данные введены некорректно");
             }
 
-            if (await _users.UserExists(request.Login!))
+            if (await _users.UserExists(request.Phone!))
             {
                 throw new MyBadRequestException("Пользователь уже существует");
             }
@@ -97,7 +97,7 @@ namespace FrontTest.Controllers
                 throw new MyNotFoundException("Пользователь не найден");
             }
 
-            var user = await _users.GetUserByLogin(request.Phone!);
+            var user = await _users.GetUserByPhone(request.Phone!);
 
             if (user.Password != request.Password)
             {
