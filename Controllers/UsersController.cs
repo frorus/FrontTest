@@ -21,6 +21,7 @@ namespace FrontTest.Controllers
 
         [HttpPost]
         [Route("auth/register")]
+        [Produces("application/json")]
         public async Task<ActionResult<AppUser>> Register([FromBody] RegisterUserRequest request)
         {
             if (!ModelState.IsValid)
@@ -69,6 +70,7 @@ namespace FrontTest.Controllers
 
         [HttpPost]
         [Route("auth/login")]
+        [Produces("application/json")]
         public async Task<ActionResult<AppUser>> Login([FromBody] LoginUserRequest request)
         {
             if (!ModelState.IsValid)
@@ -98,6 +100,7 @@ namespace FrontTest.Controllers
 
         [HttpGet]
         [Route("user")]
+        [Produces("application/json")]
         public async Task<ActionResult<AppUser>> GetUser([BindRequired] Guid id)
         {
             var user = await _users.GetUserById(id);
