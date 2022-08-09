@@ -4,7 +4,6 @@ using FrontTest.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Filters;
-using System.Net;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

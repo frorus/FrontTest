@@ -1,5 +1,4 @@
-﻿using FrontTest.Contracts;
-using Swashbuckle.AspNetCore.Filters;
+﻿using Swashbuckle.AspNetCore.Filters;
 
 namespace FrontTest.Extensions.SwaggerExamples
 {
