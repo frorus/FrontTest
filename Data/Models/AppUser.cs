@@ -9,11 +9,10 @@ namespace FrontTest.Data.Models
         [DataType(DataType.PhoneNumber)]
         public string? Phone { get; set; }
         [Required]
-        public string? Login { get; set; }
-        [Required]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
         [Required]
+        [StringLength(20, MinimumLength = 1, ErrorMessage = "Число символов в поле должно быть от 1 до 20")]
         public string? Name { get; set; }
         [Required]
         public string? Birth { get; set; }

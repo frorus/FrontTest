@@ -10,7 +10,6 @@ namespace FrontTest.Extensions.SwaggerExamples
             return new RegisterUserRequest
             {
                 Phone = "+79991234567",
-                Login = "логин",
                 Password = "Пароль123!",
                 Name = "Имя",
                 Birth = "2000-01-30",

@@ -11,7 +11,6 @@ namespace FrontTest.Extensions.SwaggerExamples
             {
                 Id = Guid.NewGuid(),
                 Phone = "+79991234567",
-                Login = "логин",
                 Name = "Имя",
                 Birth = "2000-01-30",
                 Tg = "@Username",

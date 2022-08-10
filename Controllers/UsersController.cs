@@ -36,6 +36,10 @@ namespace FrontTest.Controllers
                 throw new MyBadRequestException("Данные введены некорректно");
             }
 
+            if (request.Name!.Length >= 20) {
+                throw new MyBadRequestException("Число символов в поле должно быть от 1 до 20");
+            }
+
             if (await _users.UserExists(request.Phone!))
             {
                 throw new MyBadRequestException("Пользователь уже существует");
@@ -57,7 +61,6 @@ namespace FrontTest.Controllers
             {
                 Id = Guid.NewGuid(),
                 Phone = request.Phone,
-                Login = request.Login,
                 Password = request.Password,
                 Name = request.Name,
                 Birth = request.Birth,
@@ -134,7 +137,6 @@ namespace FrontTest.Controllers
             {
                 Id = user.Id,
                 Phone = user.Phone,
-                Login = user.Login,
                 Name = user.Name,
                 Birth = user.Birth,
                 Tg = user.Tg,
